@@ -8,7 +8,6 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
 use pocketmine\event\block\BlockSpreadEvent;
 use pocketmine\event\block\BlockFormEvent;
-use pocketmine\event\block\LiquidFlowEvent;
 use pocketmine\block\Water;
 use pocketmine\block\Lava;
 use pocketmine\block\VanillaBlocks;
@@ -25,25 +24,15 @@ class Main extends PluginBase implements Listener {
     }
 
     /**
-     * Cancels liquid flow
-     */
-    public function onLiquidFlow(LiquidFlowEvent $event): void {
-        $block = $event->getBlock();
-        
-        // Check if it's water or lava
-        if ($block instanceof Water || $block instanceof Lava) {
-            $event->cancel();
-        }
-    }
-
-    /**
      * Cancels fluid block spreading
      */
     public function onBlockSpread(BlockSpreadEvent $event): void {
         $source = $event->getSource();
+        $newBlock = $event->getNewState();
         
-        // Check if the source block is a fluid
-        if ($source instanceof Water || $source instanceof Lava) {
+        // Check if the source block is a fluid or if new block is a fluid
+        if ($source instanceof Water || $source instanceof Lava || 
+            $newBlock instanceof Water || $newBlock instanceof Lava) {
             $event->cancel();
         }
     }
