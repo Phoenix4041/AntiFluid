@@ -1,5 +1,5 @@
 name: AntiFluid
-main: Phoenix4041\AntiFluid\Main
+main: Phoenix\AntiFluid\Main
 version: 1.0.1
 api: 5.0.0
 author: Phoenix
